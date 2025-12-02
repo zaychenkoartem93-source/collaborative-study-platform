@@ -167,26 +167,35 @@ Endpoints:
 - **GET /stats/group/{groupId}** — statistics for a specific group
 ## 5. Challenges and Solutions
 
-Authentication: JavaFX clients do not handle browser-style sessions automatically. Solution: Added Spring Security session-based authentication and implemented cookie handling on the client side.
+**Authentication:** JavaFX clients do not handle browser-style sessions automatically. Solution: Added Spring Security session-based authentication and implemented cookie handling on the client side.
 
-Real-Time WebSockets: The application required instant updates across multiple users and groups. Solution: Implemented a custom WebSocket endpoint and a session registry to broadcast updates efficiently.
+**Real-Time WebSockets:** The application required instant updates across multiple users and groups. Solution: Implemented a custom WebSocket endpoint and a session registry to broadcast updates efficiently.
 
-SQLite Dialect: SQLite is not fully supported by Hibernate, causing issues with schema generation and timestamps. Solution: Added a custom SQLite dialect and adjusted entity types for clean database mapping.
+**SQLite Dialect:** SQLite is not fully supported by Hibernate, causing issues with schema generation and timestamps. Solution: Added a custom SQLite dialect and adjusted entity types for clean database mapping.
 
-JavaFX Threading: Network operations freeze the UI if executed on the JavaFX Application Thread. Solution: Used background threads for I/O and Platform.runLater() for safe UI updates.
+**JavaFX Threading:** Network operations freeze the UI if executed on the JavaFX Application Thread. Solution: Used background threads for I/O and Platform.runLater() for safe UI updates.
 
 ## 6. Use of AI — What Helped, What Required Manual Work
-AI helped with: debugging, structure, documentation.
-Manual tuning needed for: WebSocket config, DB logic, UI.
+**AI helped with:** debugging, structure, documentation.
+
+**Manual tuning needed for:** WebSocket config, DB logic, UI.
 
  ## 7. UI Screenshots & Descriptions
 
 ## Login/registration Screen
 ![Login Screen](screenshots/loginscreen.png)
 
-Description:
-The Login screen allows users to securely access the platform using their username and password. Features include input validation, error messages for incorrect credentials, and registration.
+**To create a new account:**
 
+- Enter your email address in the Email field.
+
+- Enter your desired password in the Password field.
+
+- Provide a display name in the Name (for register) field.
+
+- Press the Register button.
+
+If the email is not already registered, a new user account will be created and you can immediately log in using your email and password.
 
 ## Main Screen
 ![Main Screen](screenshots/mainscreen.png)
@@ -194,19 +203,68 @@ The Login screen allows users to securely access the platform using their userna
 
 Central navigation hub. Contains buttons for Tasks, Resources, WS Notifications, Statistics, Profile and Task Creation. Shows WS notifications.
 
+**To add a new user to a group:**
+
+- Select the group from the groups list.
+
+- Enter the user's email address into the "Add by email" field.
+
+- Click the "Add Member" button.
+
+If the email belongs to a registered user, they will be added to the selected group immediately.
+This feature allows group owners or members with permissions to invite others quickly and expand collaboration.
+
+**Creating a New Group**
+
+To create a new study group:
+
+- Enter the group name into the “Name” field.
+
+- (Optional) Provide a short description in the “Desc” field.
+
+- Click the “Create Group” button.
+
+Once created, the group will appear in the group list on the right side of the screen.
+From there, you can open the group, add members, view tasks, resources, and receive notifications related to that group.
+
 ## Tasks Screen
 ![Tasks Screen](screenshots/taskscreen.png)
 
 
 Displays the list of group tasks. Supports creation, deleting, status updating, and real-time WebSocket synchronization.
 
+**Managing Tasks**
+
+The Tasks screen displays all tasks in the selected group and provides tools to manage them:
+
+- Create Task — enter a title, description, status, and deadline, then press Create
+
+- Delete Task — select a task and press Delete
+
+- Update Status — choose a new status from the dropdown (e.g., OPEN, IN_PROGRESS, DONE)
+
+- Update Deadline — pick a new date and time using the built-in date/time selector, then press Change
+
+All updates are immediately synchronized across group members through real-time WebSocket notifications, so everyone sees changes instantly.
+
 
 ## Resource Screen
 ![Resource Screen](screenshots/srcscreen.png)
 
 
-Allows uploading files and adding external links. Supports filtering and real-time updates.
-Statistics Screen
+**The Resource screen allows users to upload and share different types of study materials:**
+
+- **Add Link** — enter a title and URL to add an external resource
+
+- **Upload File** — choose a local file and upload it to the group
+
+- **Copy Link** — copy the URL of a link-type resource
+
+- **Delete** — remove a selected resource from the group
+
+- **Download File** — download any uploaded file directly to your computer
+
+The list updates in real time through WebSocket notifications, ensuring all group members immediately see new files or links.
 
 ## Activity Screen
 ![Activity Screen](screenshots/activscreen.png)
