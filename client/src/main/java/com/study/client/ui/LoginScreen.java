@@ -53,12 +53,10 @@ public class LoginScreen {
                         pass.getText()
                 );
 
-                // !!! Лог отправляемого JSON
                 System.out.println("SENT JSON = " + json);
 
                 var res = api.postJson("/api/auth/login", json);
 
-                // !!! Лог ответа от сервера
                 System.out.println("LOGIN STATUS = " + res.statusCode());
                 System.out.println("LOGIN BODY   = " + res.body());
 

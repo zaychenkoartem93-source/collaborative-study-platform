@@ -26,14 +26,12 @@ public class StatsScreen {
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(12));
 
-        // --- Controls ---
         Button load = new Button("Load Stats");
         Label statusLabel = new Label("Stats for Group " + groupId);
 
         HBox top = new HBox(10, load, statusLabel);
         top.setPadding(new Insets(8));
 
-        // --- Charts ---
         VBox chartsBox = new VBox(20);
         chartsBox.setPadding(new Insets(10));
 
@@ -47,7 +45,6 @@ public class StatsScreen {
         xAxis.setLabel("User");
         yAxis.setLabel("Tasks");
 
-        // --- Summary Panel ---
         VBox summaryBox = new VBox(8);
         summaryBox.setPadding(new Insets(10));
         summaryBox.setStyle("-fx-background-color: #f2f2f2; -fx-padding: 10; -fx-border-color: #ccc");
@@ -70,7 +67,6 @@ public class StatsScreen {
 
         chartsBox.getChildren().addAll(tasksPie, tasksByUserBar, summaryBox);
 
-        // --- Load Button Action ---
         load.setOnAction(e -> {
             try {
                 var res = api.get("/api/stats/group/" + groupId);
@@ -80,7 +76,6 @@ public class StatsScreen {
 
                 JSONObject json = new JSONObject(res.body());
 
-                // tasksByStatus
                 JSONObject byStatus = json.getJSONObject("tasksByStatus");
                 tasksPie.getData().clear();
 
@@ -92,7 +87,6 @@ public class StatsScreen {
                 tasksPie.getData().add(new PieChart.Data("IN_PROGRESS", inProg));
                 tasksPie.getData().add(new PieChart.Data("OPEN", open));
 
-                // Bar chart
                 JSONObject byAuthor = json.getJSONObject("tasksByAuthor");
                 tasksByUserBar.getData().clear();
                 XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -111,7 +105,6 @@ public class StatsScreen {
                 }
                 tasksByUserBar.getData().add(series);
 
-                // Summary
                 long totalTasks = done + inProg + open;
                 totalTasksLabel.setText("Total Tasks: " + totalTasks);
                 doneTasksLabel.setText("Completed Tasks: " + done);

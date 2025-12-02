@@ -28,7 +28,6 @@ public class ChatController {
         outgoing.setText(incoming.getText());
         outgoing.setSentAt(OffsetDateTime.now().toString());
 
-        // Broadcast to all subscribers of this group's chat
         messagingTemplate.convertAndSend(
                 "/topic/groups/" + groupId + "/chat",
                 outgoing

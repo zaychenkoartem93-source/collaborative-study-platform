@@ -31,9 +31,6 @@ public class AuthController {
         this.encoder = encoder;
     }
 
-    // ----------------------------------------------------------
-    // REGISTER
-    // ----------------------------------------------------------
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest req) {
         User u = users.register(req.getName(), req.getEmail(), req.getPassword());
@@ -44,9 +41,6 @@ public class AuthController {
         ));
     }
 
-    // ----------------------------------------------------------
-    // LOGIN  (JSON login – интеграция с Spring Security)
-    // ----------------------------------------------------------
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest req, HttpServletRequest request) {
 
@@ -61,17 +55,14 @@ public class AuthController {
             return ResponseEntity.status(401).body(Map.of("error", "Invalid credentials"));
         }
 
-        // ✔ Создаём Authentication
         Authentication auth = new UsernamePasswordAuthenticationToken(
                 u,
                 null,
                 Collections.emptyList()
         );
 
-        // ✔ Записываем в SecurityContext
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-        // ✔ Создаём сессию и кладём userId
         HttpSession session = request.getSession(true);
         session.setAttribute("userId", u.getUserId());
 
@@ -83,10 +74,6 @@ public class AuthController {
         ));
     }
 
-
-    // ----------------------------------------------------------
-    // LOGOUT
-    // ----------------------------------------------------------
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -98,9 +85,6 @@ public class AuthController {
         return ResponseEntity.ok(Map.of("message", "logged out"));
     }
 
-    // ----------------------------------------------------------
-    // SESSION CHECK
-    // ----------------------------------------------------------
     @GetMapping("/me")
     public ResponseEntity<?> me(HttpServletRequest request) {
         HttpSession session = request.getSession(false);

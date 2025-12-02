@@ -54,9 +54,6 @@ public class ResourceController {
         return userResolver.requireUser(request);
     }
 
-    // ---------------------------------------------------------
-    // CREATE LINK
-    // ---------------------------------------------------------
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody CreateResourceRequest req,
                                     HttpServletRequest request) {
@@ -72,9 +69,7 @@ public class ResourceController {
         );
     }
 
-    // ---------------------------------------------------------
-    // UPLOAD FILE
-    // ---------------------------------------------------------
+
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ResourceItem> upload(
             @RequestParam("groupId") Long groupId,
@@ -95,9 +90,7 @@ public class ResourceController {
         return ResponseEntity.ok(item);
     }
 
-    // ---------------------------------------------------------
-    // DOWNLOAD FILE
-    // ---------------------------------------------------------
+
     @GetMapping("/download/{id}")
     public ResponseEntity<org.springframework.core.io.Resource> download(
             @PathVariable("id") Long id
@@ -124,9 +117,7 @@ public class ResourceController {
     }
 
 
-    // ---------------------------------------------------------
-    // LIST BY GROUP
-    // ---------------------------------------------------------
+
     @GetMapping("/by-group/{groupId}")
     public ResponseEntity<?> byGroup(@PathVariable("groupId") Long groupId,
                                      HttpServletRequest request) {

@@ -55,7 +55,6 @@ public class ProfileScreen {
         form.add(new Label("Phone:"), 0, 2);
         form.add(phoneField, 1, 2);
 
-        // === Исправлено: Separator после полей профиля ===
         form.add(new Separator(), 0, 3, 2, 1);
 
         HBox passSection = new HBox(8, oldPassField, newPassField, changePassBtn);
@@ -68,7 +67,6 @@ public class ProfileScreen {
         Label status = new Label();
         root.getChildren().addAll(title, form, status);
 
-        // Загружаем данные профиля (теперь с phone)
         loadProfile(nameField, emailField, phoneField, status);
 
         saveProfileBtn.setOnAction(e -> updateProfile(nameField, emailField, phoneField, status));
@@ -80,9 +78,7 @@ public class ProfileScreen {
         stage.show();
     }
 
-    /**
-     * Загружает данные профиля пользователя
-     */
+
     private void loadProfile(TextField nameField, TextField emailField, TextField phoneField, Label status) {
         try {
             var res = api.get("/api/user/profile");
@@ -99,16 +95,13 @@ public class ProfileScreen {
         }
     }
 
-    /**
-     * Обновляет профиль пользователя
-     */
+
     private void updateProfile(TextField nameField, TextField emailField, TextField phoneField, Label status) {
         try {
             String name = nameField.getText().trim();
             String email = emailField.getText().trim();
             String phone = phoneField.getText().trim();
 
-            // Валидация
             if (name.isEmpty()) {
                 status.setText("Name cannot be empty");
                 return;
@@ -118,7 +111,6 @@ public class ProfileScreen {
                 return;
             }
 
-            // === Исправлено: теперь phone передаётся в JSON ===
             String json = String.format(
                     "{\"name\":\"%s\",\"email\":\"%s\",\"phone\":\"%s\"}",
                     name, email, phone.isEmpty() ? "" : phone
@@ -139,15 +131,12 @@ public class ProfileScreen {
         }
     }
 
-    /**
-     * Изменяет пароль пользователя
-     */
+
     private void changePassword(PasswordField oldPassField, PasswordField newPassField, Label status) {
         try {
             String oldPass = oldPassField.getText();
             String newPass = newPassField.getText();
 
-            // Валидация
             if (newPass.length() < 6) {
                 status.setText("Password must be at least 6 characters");
                 return;

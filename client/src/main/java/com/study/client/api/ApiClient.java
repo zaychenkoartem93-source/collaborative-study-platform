@@ -94,7 +94,6 @@ public class ApiClient {
                 .GET()
                 .build();
 
-        // Receive REAL BYTES, not a String!
         HttpResponse<byte[]> res =
                 http.send(req, HttpResponse.BodyHandlers.ofByteArray());
 
@@ -122,7 +121,6 @@ public class ApiClient {
 
         Path dest = downloadsDir.resolve(filename);
 
-        // Save the bytes directly
         Files.write(dest, res.body());
 
         System.out.println("File saved to: " + dest);

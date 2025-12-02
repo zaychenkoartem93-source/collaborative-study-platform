@@ -37,7 +37,6 @@ public class UserController {
         return userResolver.requireUser(request);
     }
 
-    // Получение профиля
     @GetMapping("/profile")
     public ResponseEntity<?> getProfile(HttpServletRequest request) {
         User u = currentUser(request);
@@ -45,30 +44,28 @@ public class UserController {
                 u.getUserId(),
                 u.getName(),
                 u.getEmail(),
-                u.getPhone()  // === Добавлено поле телефона ===
+                u.getPhone()
         );
         return ResponseEntity.ok(profile);
     }
 
-    // Обновление профиля
     @PostMapping("/profile")
     public ResponseEntity<?> updateProfile(@Valid @RequestBody UserUpdateRequest req, HttpServletRequest request) {
         User u = currentUser(request);
 
         try {
-            // Обновляем через сервис
             User updated = users.updateProfile(
                     u.getUserId(),
                     req.getName(),
                     req.getEmail(),
-                    req.getPhone()  // === Добавлено поле телефона ===
+                    req.getPhone()
             );
 
             return ResponseEntity.ok(Map.of(
                     "userId", updated.getUserId(),
                     "name", updated.getName(),
                     "email", updated.getEmail(),
-                    "phone", updated.getPhone(),  // === Добавлено поле телефона ===
+                    "phone", updated.getPhone(),
                     "message", "Profile updated successfully"
             ));
         } catch (IllegalArgumentException ex) {
@@ -88,13 +85,11 @@ public class UserController {
             return ResponseEntity.badRequest().body(Map.of("error", "Invalid passwords"));
         }
 
-        // Проверяем старый пароль
         if (!passwordEncoder.matches(oldPassword, u.getPasswordHash())) {
             return ResponseEntity.status(401).body(Map.of("error", "Old password incorrect"));
         }
 
         try {
-            // Обновляем пароль через сервис
             User updated = users.updatePassword(u.getUserId(), newPassword);
             userRepo.save(updated);
 

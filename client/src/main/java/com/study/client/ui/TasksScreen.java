@@ -57,7 +57,6 @@ public class TasksScreen {
 
         create.setOnAction(e -> {
             try {
-                // Собираем дату и время (Instant)
                 String deadlineStr = "";
                 if (deadlineDate.getValue() != null) {
                     String t = deadlineTime.getText().trim();

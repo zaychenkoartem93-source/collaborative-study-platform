@@ -70,7 +70,6 @@ public class TaskService {
 
         t = tasks.save(t);
 
-        // Используем sendTaskUpdated из NotificationService (типизированное событие)
         notifier.sendTaskUpdated(t.getGroup().getGroupId(), t.getTaskId(), t.getStatus().name());
 
         return t;
@@ -82,6 +81,5 @@ public class TaskService {
 
     public void deleteTask(Long taskId) {
         tasks.deleteById(taskId);
-        // Можно добавить notifier.sendTaskDeleted(...) если реализовано в NotificationService
     }
 }

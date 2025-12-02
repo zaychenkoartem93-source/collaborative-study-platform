@@ -32,7 +32,6 @@ public class ResourceService {
         ResourceItem item = new ResourceItem(g, user, title, "LINK", url);
         item = resources.save(item);
 
-        // WebSocket-уведомление — структурированное (для клиента понятно, что это новый файл/ссылка)
         notifier.sendResourceAdded(g.getGroupId(), item.getResourceId(), item.getTitle());
 
         return item;

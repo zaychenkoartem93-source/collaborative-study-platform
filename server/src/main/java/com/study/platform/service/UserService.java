@@ -32,31 +32,22 @@ public class UserService implements UserDetailsService {
         return users.findByEmail(email);
     }
 
-    /**
-     * Обновление профиля пользователя
-     */
     public User updateProfile(Long userId, String name, String email, String phone) {
         User user = users.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        // Проверяем уникальность email
         if (!email.equals(user.getEmail())) {
             if (users.existsByEmailAndUserIdNot(email, userId)) {
                 throw new IllegalArgumentException("Email already in use");
             }
         }
-
-        // Обновляем поля
         user.setName(name);
         user.setEmail(email);
-        user.setPhone(phone);  // === Добавлено обновление телефона ===
+        user.setPhone(phone);
 
         return users.save(user);
     }
 
-    /**
-     * Обновление пароля пользователя
-     */
     public User updatePassword(Long userId, String newPassword) {
         if (newPassword.length() < 6) {
             throw new IllegalArgumentException("Password must be at least 6 characters");

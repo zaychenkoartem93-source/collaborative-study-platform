@@ -4,7 +4,7 @@ public class UserProfileDto {
     private Long userId;
     private String name;
     private String email;
-    private String phone;  // === Добавлено поле для телефона ===
+    private String phone;
 
     public UserProfileDto() {}
 
@@ -15,7 +15,6 @@ public class UserProfileDto {
         this.phone = phone;
     }
 
-    // Геттеры и сеттеры
     public Long getUserId() { return userId; }
     public void setUserId(Long userId) { this.userId = userId; }
 

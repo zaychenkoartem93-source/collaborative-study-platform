@@ -73,7 +73,6 @@ public class ResourcesScreen {
         );
         top.setPadding(new Insets(8));
 
-        // ============ ADD LINK ============
         addLink.setOnAction(e -> {
             try {
                 ObjectNode reqObj = mapper.createObjectNode();
@@ -94,7 +93,6 @@ public class ResourcesScreen {
             }
         });
 
-        // ============ UPLOAD FILE ============
         addFile.setOnAction(e -> {
             File file = chooser.showOpenDialog(stage);
             if (file == null) {
@@ -118,23 +116,15 @@ public class ResourcesScreen {
             }
         });
 
-        // ============ DOWNLOAD FILE ============
         downloadFile.setOnAction(e -> downloadSelectedFile());
-
-        // ============ COPY LINK ============
         copyLink.setOnAction(e -> copySelectedLink());
-
-        // ============ DELETE RESOURCE ============
         delete.setOnAction(e -> deleteSelectedResource());
-
-        // ============ DOUBLE CLICK ACTION ============
         resourceList.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 handleDoubleClick();
             }
         });
 
-        // ============ Ctrl+C COPY ============
         resourceList.setOnKeyPressed(event -> {
             if (event.isControlDown() && event.getCode() == KeyCode.C) {
                 copySelectedLink();
@@ -152,11 +142,6 @@ public class ResourcesScreen {
         stage.setTitle("Resources - Group " + groupId);
         stage.show();
     }
-
-
-    // =============================================
-    //              RESOURCE ACTIONS
-    // =============================================
 
     private void handleDoubleClick() {
         int index = resourceList.getSelectionModel().getSelectedIndex();
@@ -237,9 +222,6 @@ public class ResourcesScreen {
         }
     }
 
-    // =============================================
-    //                    REFRESH
-    // =============================================
 
     private void refreshResources() {
         refreshResources(resourceList, infoLabel);

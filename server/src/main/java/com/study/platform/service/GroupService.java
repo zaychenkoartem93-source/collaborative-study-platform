@@ -48,7 +48,6 @@ public class GroupService {
         Membership membership = new Membership(user, group, Membership.Role.MEMBER);
         memberships.save(membership);
 
-        // Используй sendNewMember! Передавай groupId, userId и userName
         notificationService.sendNewMember(group.getGroupId(), user.getUserId(), user.getName());
 
         return true;

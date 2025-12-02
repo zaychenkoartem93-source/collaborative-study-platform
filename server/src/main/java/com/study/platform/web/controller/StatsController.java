@@ -48,20 +48,17 @@ public class StatsController {
         Group g = groups.findById(groupId).orElseThrow();
         if (!groupService.isMember(u, g)) return ResponseEntity.status(403).build();
 
-        // Подсчёт задач по статусам
         Map<String, Long> tasksByStatus = new HashMap<>();
         for (Task.Status s : Task.Status.values()) {
             long count = tasks.findByGroupAndStatus(g, s).size();
             tasksByStatus.put(s.name(), count);
         }
 
-        // Подсчёт задач по авторам (email автора)
         Map<String, Long> tasksByAuthor = new HashMap<>();
         tasks.findByGroup(g).forEach(t ->
                 tasksByAuthor.merge(t.getCreatedBy().getEmail(), 1L, Long::sum)
         );
 
-        // Количество ресурсов
         long resourcesCount = resources.findByGroup(g).size();
 
         return ResponseEntity.ok(new GroupStatsResponse(tasksByStatus, tasksByAuthor, resourcesCount));

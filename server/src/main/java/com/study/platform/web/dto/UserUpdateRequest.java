@@ -15,12 +15,10 @@ public class UserUpdateRequest {
     @Email(message = "Email should be valid")
     private String email;
 
-    // === Добавлено поле для телефона (опциональное) ===
     @Size(max = 20, message = "Phone number too long")
     @Pattern(regexp = "^[+]?[0-9\\s-()]{7,20}$", message = "Invalid phone number format")
     private String phone;
 
-    // Конструкторы
     public UserUpdateRequest() {}
 
     public UserUpdateRequest(String name, String email, String phone) {
@@ -29,7 +27,6 @@ public class UserUpdateRequest {
         this.phone = phone;
     }
 
-    // Геттеры и сеттеры
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 

@@ -58,7 +58,6 @@ public class GroupController {
         return ResponseEntity.ok(g);
     }
 
-    // Новый endpoint для добавления участника по email
     @PostMapping("/{id}/add-member")
     public ResponseEntity<?> addMember(
             @PathVariable("id") Long groupId,
