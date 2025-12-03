@@ -228,7 +228,7 @@ Once created, the group will appear in the group list on the right side of the s
 From there, you can open the group, add members, view tasks, resources, and receive notifications related to that group.
 
 ## Tasks Screen
-![Tasks Screen](screenshots/taskscreen.png)
+![Tasks Screen](screenshots/taskscreen1.png)
 
 
 Displays the list of group tasks. Supports creation, deleting, status updating, and real-time WebSocket synchronization.
